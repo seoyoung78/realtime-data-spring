@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:websocket="http://www.springframework.org/schema/websocket"
+	xsi:schemaLocation="http://www.springframework.org/schema/websocket http://www.springframework.org/schema/websocket/spring-websocket-4.3.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<websocket:handlers allowed-origins="*">
+		<websocket:mapping handler="chatWebSocket" path="/websocket/chat" />
+		<websocket:mapping handler="redisWebSocket" path="/websocket/redis" />
+	</websocket:handlers>
+	
+</beans:beans>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
