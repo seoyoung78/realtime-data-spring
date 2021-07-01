@@ -83,12 +83,17 @@
 				var topic = $("#pubTopic").val();
 				var content = $("#content").val();
 				
-				$.ajax({
+				/* $.ajax({
 					url: "sendMqttMessage2",
 					data: {topic, content}
 				}).done((data) => {
 					// data: {result: "success"}
-				});
+				}); */
+				
+				// 채팅의 경우
+				var message = {topic, content};
+				var json = JSON.stringify(message);
+				client.send(topic, json, 0, false);
 			}  	
 		</script>
 	</div>
