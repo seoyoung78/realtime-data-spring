@@ -11,6 +11,8 @@
 	</bean> 
 	-->
 
+	<!-- 사용할 redis 지정 -->
+	<!-- Redis 설치 위치 정보 -->
 	<bean id="jedisConnectionFactory" 
 	      class="org.springframework.data.redis.connection.jedis.JedisConnectionFactory">
 		<constructor-arg name="standaloneConfig">
@@ -21,19 +23,24 @@
 		</constructor-arg>
 	</bean>
 
+	<!-- 자바에서 redis를 사용 가능하도록 -->
+	<!-- Java 코드에서 사용하기 위한 Redis Client 객체 -->
 	<bean id="redisTemplate" class="org.springframework.data.redis.core.RedisTemplate">
 		<property name="connectionFactory" ref="jedisConnectionFactory"/>
+		<!-- 문자열 해석 -->
 		<property name="defaultSerializer">
 			<bean class="org.springframework.data.redis.serializer.StringRedisSerializer"/>
 		</property>
 	</bean>
 	
+	<!-- Subscriber에서 메시지를 수신하기 위한 객체 설정 -->
 	<bean id="messageListener" 
 		  class="org.springframework.data.redis.listener.adapter.MessageListenerAdapter">
-	  <constructor-arg name="delegate" ref="redisWebSocket">
+	  <constructor-arg name="delegate" ref="redisWebSocket2">
 	  </constructor-arg>
 	</bean>
 	
+	<!-- 구독하고 싶은 패턴 형식의 Topic 설정 -->
 	<bean id="redisContainer" 
 	      class="org.springframework.data.redis.listener.RedisMessageListenerContainer">
 	  <property name="connectionFactory" ref="jedisConnectionFactory"/>
@@ -41,13 +48,14 @@
 	    <map>
 	      <entry key-ref="messageListener">
 	        <bean class="org.springframework.data.redis.listener.PatternTopic">
+	        	<!-- 패턴 형식 지정 -->
 	          <constructor-arg value="/*"/>
 	        </bean>
 	      </entry>
 	    </map>
 	  </property>
 	</bean>
-
+ 
 </beans>
 
 

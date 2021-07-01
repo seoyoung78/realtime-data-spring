@@ -18,15 +18,15 @@ public class MqttTemplate {
 	private MqttClient mqttClient;
 	
 	public MqttTemplate() {
-		try {
-			mqttClient = new MqttClient(
-				"tcp://localhost:1883", MqttClient.generateClientId(), null);
-			MqttConnectOptions options = new MqttConnectOptions();
-			options.setAutomaticReconnect(true);
-			mqttClient.connect(options);
-		} catch (MqttException e) {
-			e.printStackTrace();
-		}
+//		try {
+//			mqttClient = new MqttClient(
+//				"tcp://localhost:1883", MqttClient.generateClientId(), null);
+//			MqttConnectOptions options = new MqttConnectOptions();
+//			options.setAutomaticReconnect(true);
+//			mqttClient.connect(options);
+//		} catch (MqttException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	public void sendMessage(String topic, String content) {
