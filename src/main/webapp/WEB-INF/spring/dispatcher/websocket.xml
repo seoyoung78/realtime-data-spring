@@ -10,6 +10,7 @@
 		<!-- <websocket:mapping handler="redisWebSocket" path="/websocket/redis" /> -->
 		
 		<websocket:mapping handler="chatWebSocket2" path="/websocket/chat2"/>
+		<websocket:mapping handler="redisWebSocket2" path="/websocket/redis2"/>
 	</websocket:handlers>
 	
 </beans:beans>

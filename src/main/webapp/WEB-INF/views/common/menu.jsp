@@ -22,6 +22,12 @@
     <a class="nav-link text-warning" href="<%=application.getContextPath()%>/chat2">
     	WebSocket
     </a>
+    <a class="nav-link text-warning" href="<%=application.getContextPath()%>/redis2">
+    	WebSocket + Redis
+    </a>
+    <a class="nav-link text-warning" href="<%=application.getContextPath()%>/mqtt2">
+    	MQTT
+    </a>
   </li>
 </ul>
 

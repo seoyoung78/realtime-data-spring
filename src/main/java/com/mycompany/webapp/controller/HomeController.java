@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.mycompany.webapp.mqtt.MqttTemplate;
+import com.mycompany.webapp.mqtt.MqttTemplate2;
 
 @CrossOrigin(origins="*")
 @Controller
@@ -21,11 +22,11 @@ public class HomeController {
 	private static final Logger logger = 
 			LoggerFactory.getLogger(HomeController.class);
 	
-//	@Autowired
-//	private RedisTemplate<String, String> redisTemplate;
-//	
-//	@Autowired
-//	private MqttTemplate mqttTemplate;
+	@Autowired
+	private RedisTemplate<String, String> redisTemplate;
+	
+	@Autowired
+	private MqttTemplate2 mqttTemplate;
 	
 	@RequestMapping("/home")
 	public String home() {
@@ -36,6 +37,56 @@ public class HomeController {
 	public String chat2() {
 		return "chat2";
 	}
+	
+	@RequestMapping("/redis2")
+	public String redis2() {
+		return "redis2";
+	}
+
+	@RequestMapping("/sendRedisMessage2")
+	public void sendRedisMessage(String topic, String content, HttpServletResponse response) {
+		try {
+			//Redis로 메시지를 보내면 WebSocket로 전달
+			redisTemplate.convertAndSend(topic, content);
+			
+			response.setContentType("application/json; charset=UTF-8");
+			PrintWriter pw = response.getWriter();
+			
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("result", "success");
+			pw.println(jsonObject.toString());	//{"result":"success"}
+			pw.flush();
+			pw.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	@RequestMapping("/mqtt2")
+	public String mqtt2() {
+		return "mqtt2";
+	}
+	
+	@RequestMapping("/sendMqttMessage2")
+	public void sendMqttMessage2(String topic, String content, HttpServletResponse response) {
+		try {
+			//Redis로 메시지를 보내면 WebSocket로 전달
+			mqttTemplate.sendMessage(topic, content);
+			
+			response.setContentType("application/json; charset=UTF-8");
+			PrintWriter pw = response.getWriter();
+			
+			JSONObject jsonObject = new JSONObject();
+			jsonObject.put("result", "success");
+			pw.println(jsonObject.toString());	//{"result":"success"}
+			pw.flush();
+			pw.close();
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	//------------------------------------------------------------------------------------------------
 	
 	@RequestMapping("/chat")
 	public String chat() {
