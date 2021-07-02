@@ -56,6 +56,7 @@
 		</div>
 		<script>
 			function sendSubTopic() {
+				// 이전 구독 내용을 지우고 새로운 구독 내용 추가
 				if(typeof(subscribeTopic) !== "undefined") {
 	    			client.unsubscribe(subscribeTopic);
 				}
